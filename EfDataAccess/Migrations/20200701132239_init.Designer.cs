@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EfDataAccess.Migrations
 {
     [DbContext(typeof(EfContext))]
-    [Migration("20190622195133_Improve many-to-many relationship")]
-    partial class Improvemanytomanyrelationship
+    [Migration("20200701132239_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
