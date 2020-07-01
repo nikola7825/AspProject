@@ -1,0 +1,11 @@
+﻿
+
+    <cs-pager cs-paging-pagenumber="Model.CurrentPage"
+              cs-paging-totalitems="Model.PagesCount"
+              cs-paging-pagesize="1"
+              cs-pagenumber-param="PageNumber"
+              asp-route-SortOrder="@ViewBag.CurrentSortOrder"
+              asp-route-SearchString="@ViewBag.CurrentFilter"
+              asp-controller=@ViewData["Controller"]
+              asp-action=@ViewData["Action"]>
+    </cs-pager> 

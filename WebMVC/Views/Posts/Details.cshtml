@@ -1,0 +1,71 @@
+﻿@model Application.DTO.GetPostDto
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+<h2>Post Details</h2>
+
+@if (TempData["error"] != null)
+{
+    <p class="alert-danger">@TempData["error"]</p>
+}
+<div>
+    <h4>Post</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Summary)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Summary)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Text)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Text)
+        </dd>
+        <dt>
+            Author
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Category)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Category)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Image)
+        </dt>
+        <dd>
+            <img src="~/uploads/@Html.DisplayFor(model => model.Image)" width="300" />
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ShowTagInPosts)
+        </dt>
+        <dd>
+            @foreach(var item in Model.ShowTagInPosts)
+            {
+                @item.TagName<br/>
+            }
+
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    <a asp-action="Index">Back to List</a>
+</div>

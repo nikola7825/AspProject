@@ -1,0 +1,95 @@
+﻿@model Application.Responses.PageResponses<Application.DTO.ShowUserDto>
+
+@{
+    ViewData["Title"] = "Index";
+    ViewData["Controller"] = "users";
+    ViewData["Action"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<br/>
+<form asp-action="Index" method="get">
+    <div>
+        <p>
+            Find User: <input type="text" name="SearchString" value="@ViewBag.CurrentFilter" />
+            <input type="submit" value="Search" class="btn btn-primary" /> |
+            <a asp-action="Index">Remove filter</a>
+        </p>
+    </div>
+</form>
+<br />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                <a asp-action="Index" 
+                   asp-route-PageNumber="@Model.CurrentPage"
+                   asp-route-SortOrder="@ViewBag.FirstNameSortParam"
+                   >
+                    First Name
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index" 
+                   asp-route-PageNumber="@Model.CurrentPage"
+                   asp-route-SortOrder="@ViewBag.LastNameSortParam"
+                   >
+                    Last Name
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index"
+                   asp-route-PageNumber="@Model.CurrentPage"
+                   asp-route-SortOrder="@ViewBag.UsernameSortParam"
+                   >
+                Username
+                </a>
+            </th>
+            <th>
+                <a
+                   asp-action="Index"
+                   asp-route-PageNumber="@Model.CurrentPage"
+                   asp-route-SortOrder="@ViewBag.RoleSortParam"
+                   >Role
+                </a>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Data) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Username)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RoleName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            </td>
+        </tr>
+}
+    </tbody>
+
+</table>
+
+<partial name="_PaginationPartial" model="Model" view-data="ViewData" />

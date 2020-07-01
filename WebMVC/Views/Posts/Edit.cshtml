@@ -1,0 +1,97 @@
+﻿@model Application.DTO.GetPostDto
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>Edit Post</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" method="POST" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Summary" class="control-label"></label>
+                <input asp-for="Summary" class="form-control" />
+                <span asp-validation-for="Summary" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Text" class="control-label"></label>
+                <textarea asp-for="Text" class="form-control"></textarea>
+                <span asp-validation-for="Text" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserId" class="control-label"></label>
+                <select asp-for="UserId" class="form-control">
+                    @foreach (var user in ViewBag.Users)
+                    {
+                        if (@user.Id == @Model.UserId)
+                        {
+                            <option selected value="@user.Id">@user.FirstName @user.LastName</option>
+
+                        }
+                        else
+                        {
+                            <option value="@user.Id">@user.FirstName @user.LastName</option>
+
+                        }
+                    }
+                </select>
+                <span asp-validation-for="UserId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CategoryId" class="control-label"></label>
+                <select asp-for="CategoryId" class="form-control">
+                    @foreach (var category in ViewBag.Categories)
+                    {
+                        if (@category.Id == @Model.CategoryId)
+                        {
+                            <option selected value="@category.Id">@category.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@category.Id">@category.Name</option>
+                        }
+                    }
+
+                </select>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageFile" class="control-label"></label>
+                <img src="~/uploads/@Html.DisplayFor(model => model.Image)" width="350" /><br/><br/>
+                <input asp-for="ImageFile" type="file" name="ImageFile" class="form-control" />
+                <span asp-validation-for="ImageFile" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div><b>Tags</b></div>
+                @foreach (var tag in ViewBag.Tags)
+                {
+                    if (Model.ShowTagInPosts.Any(t => t.TagName == tag.Name))
+                    {
+                        <input type="checkbox" checked name="TagsInPost" value="@tag.Id" /> <span>@tag.Name</span> <br />
+                    }
+                    else
+                    {
+                        <input type="checkbox" name="TagsInPost" value="@tag.Id" /> <span>@tag.Name</span> <br />
+                    }
+                }
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

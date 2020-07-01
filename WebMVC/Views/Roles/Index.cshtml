@@ -1,0 +1,57 @@
+﻿@model Application.Responses.PageResponses<Application.DTO.ShowRoleDto>
+
+@{
+    ViewData["Title"] = "Index";
+    ViewData["Controller"] = "roles";
+    ViewData["Action"] = "Index";
+}
+
+@if(TempData["error"] != null)
+{
+    <p class="alert-danger">@TempData["error"]</p>
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<br />
+    <form asp-action="Index" method="get">
+        Search role: <input type="text" name="SearchString" value="@ViewBag.CurrentFilter" /> 
+        <input type="submit" value="Search role" class="btn btn-primary" /> |
+        <a asp-action="Index">Remove filter</a>
+    </form>
+<br />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-action="Index"
+                   asp-route-sortOrder="@ViewBag.RoleSortParam"
+                   asp-route-PageNumber="@Model.CurrentPage">
+                    Role
+                </a>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Data) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<partial name="_PaginationPartial" model="Model" view-data="ViewData"/>
